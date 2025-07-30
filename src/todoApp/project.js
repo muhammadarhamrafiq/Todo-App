@@ -111,6 +111,18 @@ class Project{
     get sections(){
         return this.#sections;
     }
+
+    // --- Serialization --
+    toJSON(){
+        return {
+            id: this.#id,
+            title: this.#title,
+            description: this.#description,
+            tasks: this.#tasks.map(task => task.toJSON()),
+            sections: this.#sections.map(section => section.toJSON()),
+        }
+    }
+
 }
 
 export default Project;

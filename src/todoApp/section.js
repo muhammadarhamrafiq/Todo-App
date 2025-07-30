@@ -10,7 +10,7 @@ class Section {
         this.#id = id;
         this.#title = title;
         this.#description = description;
-        this.#tasks = tasks;
+        this.#tasks = tasks.map(task => new Task(task));
     }
 
     // --- Task Management ---
@@ -80,6 +80,15 @@ class Section {
 
     get id(){
         return this.#id;
+    }
+
+    toJSON(){
+        return {
+            id: this.#id,
+            title: this.#title,
+            description: this.#description,
+            tasks: this.#tasks.map(task => task.toJSON()),
+        }
     }
 }
 

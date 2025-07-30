@@ -64,6 +64,18 @@ class Task {
   get completed() {
     return this.#completed;
   }
+
+  toJSON(){
+    return {
+      id: this.#id,
+      title: this.#title,
+      description: this.#description,
+      dueDate: this.#dueDate,
+      priority: this.#priority,
+      note: this.#note,
+      completed: this.#completed,
+    }
+  }
 }
 
 export default Task;

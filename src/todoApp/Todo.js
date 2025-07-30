@@ -1,80 +1,107 @@
 import Project from "./project.js";
 
-class Todo{
-    #projects = [];
-    static #instance = null;
+class Todo {
+  #projects = [];
+  static #instance = null;
 
-    constructor(){
-        if(Todo.#instance) return Todo.#instance;
-        Todo.#instance = this;
-        this.#projects = [];
+  constructor() {
+    if (Todo.#instance) return Todo.#instance;
 
-        // Default Project, Section and Tasks
-        const defaultProject = new Project({
-            title: "Welcome Project",
-            description: "This is your first project. You can add sections and tasks to it.",
-        })
+    // Default Project, Section and Tasks
+    const data = localStorage.getItem("todoApp");
+    if (data) {
+      this.fromJSON(data);
+    } else {
+      const defaultProject = new Project({
+        title: "Welcome Project",
+        description:
+          "This is your first project. You can add sections and tasks to it.",
+      });
 
-        defaultProject.addSection({
-            title: "Welcome Section",
-            description: "This is your first section. You can add tasks to it.",
-        })
+      defaultProject.addSection({
+        title: "Welcome Section",
+        description: "This is your first section. You can add tasks to it.",
+      });
 
-        const defaultSection = defaultProject.sections[0];
-        defaultSection.addTask({
-            title: "Welcome Task",
-            description: "This is your first task in the welcome section. You can edit or delete it.",
-            dueDate: new Date().toISOString(),
-        })
+      const defaultSection = defaultProject.sections[0];
+      defaultSection.addTask({
+        title: "Welcome Task",
+        description:
+          "This is your first task in the welcome section. You can edit or delete it.",
+        dueDate: new Date().toISOString(),
+      });
 
-        defaultProject.addTask({
-            title: "Welcome Task",
-            description: "This is your first task. You can edit or delete it.",
-            dueDate: new Date().toISOString(),
-        })
+      defaultProject.addTask({
+        title: "Welcome Task",
+        description: "This is your first task. You can edit or delete it.",
+        dueDate: new Date().toISOString(),
+      });
 
-        this.#projects.push(defaultProject);
+      this.#projects.push(defaultProject);
     }
 
-    /**
-     * @typedef {Object} ProjectData
-     * @property {string} title
-     * @property {string} description 
-    */
+    Todo.#instance = this;
+  }
 
-    /**
-     * @param {ProjectData} projectData 
-    */
-    addProject(projectData){
-        let newProject = new Project(projectData);
-        this.#projects.push(newProject);
-    }
+  /**
+   * @typedef {Object} ProjectData
+   * @property {string} title
+   * @property {string} description
+   */
 
-    #findProjectIndex(projectId){
-        return this.#projects.findIndex(project => project.id === projectId);
-    }
+  /**
+   * @param {ProjectData} projectData
+   */
+  addProject(projectData) {
+    let newProject = new Project(projectData);
+    this.#projects.push(newProject);
+  }
 
-    getAllProjects(){
-        return this.#projects.map(({id, title, description}) => ({id, title, description}));
-    }
+  #findProjectIndex(projectId) {
+    return this.#projects.findIndex((project) => project.id === projectId);
+  }
 
-    getProject(id){
-        return this.#projects[this.#findProjectIndex(id)] || null;
-    }
+  getAllProjects() {
+    return this.#projects.map(({ id, title, description }) => ({
+      id,
+      title,
+      description,
+    }));
+  }
 
-    deleteProject(id){
-        const index = this.#findProjectIndex(id);
-        if (index !== -1){
-            this.#projects.splice(index, 1);
-        }
-    }
+  getProject(id) {
+    return this.#projects[this.#findProjectIndex(id)] || null;
+  }
 
-    // --- Getters ---
-    get projects(){
-        return this.getAllProjects();
+  deleteProject(id) {
+    const index = this.#findProjectIndex(id);
+    if (index !== -1) {
+      this.#projects.splice(index, 1);
     }
-    
+  }
+
+  // --- Getters ---
+  get projects() {
+    return this.getAllProjects();
+  }
+
+  // --- Serialization ---
+  toJSON() {
+    return {
+      projects: this.#projects.map((project) => project.toJSON()),
+    };
+  }
+
+  storeToLocalStorage() {
+    localStorage.setItem("todoApp", JSON.stringify(this.toJSON(), null, 2));
+  }
+
+  fromJSON(data) {
+    const object = JSON.parse(data);
+    this.#projects = object.projects.map((project) =>
+        new Project(project)
+    );
+  }
 }
-
 
 export default Todo;
