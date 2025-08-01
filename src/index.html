@@ -1,18 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <main class="relative h-screen w-screen">
-        <div class="p-4 border-r border-gray-200 h-full w-60">
-            <h1 class="text-2xl font-bold">Todo App</h1>
-            <div class="flex flex-col gap-1 mt-4" id="projectList">
-                
-            </div>
+  </head>
+  <body>
+    <main class="relative h-screen w-screen flex">
+
+      <div class="p-4 border-r border-gray-200 h-full w-80">
+        <h1 class="text-2xl font-bold">Todo App</h1>
+        <div class="flex flex-col gap-1 mt-4" id="projectList">
+          <!-- Project would be added dynamically -->
         </div>
+        <div>
+          <button
+            class="mt-2 py-0 px-2 rounded-full outline-2 outline-gray-200 cursor-pointer hover:bg-gray-300"
+            id="addProjectButton"
+          >
+            +
+          </button>
+          <form id="projectForm" class="hidden mt-2">
+            <input
+              type="text"
+              name="projectName"
+              id="projectInput"
+              placeholder="Add new project"
+              class="w-full p-2 border border-gray-300 rounded"
+            />
+            <textarea
+              name="projectDescription"
+              id="projectDescription"
+              placeholder="Project Description"
+              class="w-full p-2 border border-gray-300 rounded mt-2"
+            ></textarea>
+            <button
+              type="submit"
+              class="mt-2 w-full p-2 rounded cursor-pointer hover:bg-gray-300"
+            >
+              Add
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="py-10 px-40 h-full w-full" id="projectPannel">
+        <h2 class="text-7xl font-semibold mb-4" id="currentProjectTitle">
+          Welcome Project1
+        </h2>
+        <p class="text-sm font-light mb-4" id="currentProjectDescription">
+          This is your first project
+        </p>
+
+        <div class="flex flex-col gap-1" id="projectTasksContainer">
+          <!-- Todo items would be added dynamically -->
+        </div>
+
+        <div class="flex flex-col gap-1 mt-4" id="projectSectionsContainer">
+          <!-- Project sections would be added dynamically -->
+        </div>
+      </div>
+      
     </main>
-</body>
+
+    <!-- Modal for Adding Task -->
+    <div
+      id="addTaskModal"
+      class="fixed inset-0 bg-black/30ss flex items-center justify-center z-50 hidden"
+    >
+      <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+        <h3 class="text-xl font-semibold mb-4">Add New Task</h3>
+        <form id="addTaskForm" class="flex flex-col gap-3">
+          <input
+            type="text"
+            id="taskTitle"
+            name="taskTitle"
+            placeholder="Task Title"
+            class="p-2 border border-gray-300 rounded"
+            required
+          />
+          <textarea
+            id="taskDescription"
+            name="taskDescription"
+            placeholder="Task Description"
+            class="p-2 border border-gray-300 rounded"
+          ></textarea>
+          <input
+            type="date"
+            id="taskDueDate"
+            name="taskDueDate"
+            class="p-2 border border-gray-300 rounded"
+          />
+          <div>
+            <label for="taskPriority" class="block mb-1">Priority</label>
+            <select
+              id="taskPriority"
+              name="taskPriority"
+              class="w-full p-2 border border-gray-300 rounded"
+            >
+              <option value="0">0 ⬜</option>
+              <option value="1">1 🟦</option>
+              <option value="2">2 🟩</option>
+              <option value="3">3 🟥</option>
+            </select>
+          </div>
+          <textarea
+            id="taskNote"
+            name="taskNote"
+            placeholder="Note"
+            class="p-2 border border-gray-300 rounded"
+          ></textarea>
+          <div class="flex justify-end gap-2 mt-4">
+            <button
+              type="button"
+              id="cancelTaskButton"
+              class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+            >
+              Add Task
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>

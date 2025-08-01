@@ -64,7 +64,7 @@ class Project{
     }
 
     getAllTasks(){
-        return this.#tasks.map(({id, title, dueDate}) => ({id, title, dueDate}));
+        return this.#tasks.map(({id, title, dueDate, priority, completed}) => ({id, title, dueDate, priority, completed}));
     }
 
     #findTaskIndex(taskId){
@@ -89,6 +89,10 @@ class Project{
         if (index !== -1) {
             this.#tasks.splice(index, 1);
         }
+    }
+
+    getSection(id){
+        return this.#sections.find(section => section.id === id) || null;
     }
 
     // --- Getters ---

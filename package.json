@@ -8,7 +8,12 @@
     "deploy": "git subtree push --prefix dist origin gh-pages",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["todo", "odin-project", "javascript", "webpack"],
+  "keywords": [
+    "todo",
+    "odin-project",
+    "javascript",
+    "webpack"
+  ],
   "author": "Muhammad Arham",
   "license": "ISC",
   "description": "A todo list application built as part of The Odin Project curriculum",
@@ -24,5 +29,8 @@
     "webpack": "^5.100.2",
     "webpack-cli": "^6.0.1",
     "webpack-dev-server": "^5.2.2"
+  },
+  "dependencies": {
+    "date-fns": "^4.1.0"
   }
 }

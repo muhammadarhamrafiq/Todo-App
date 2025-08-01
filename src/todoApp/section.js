@@ -46,7 +46,7 @@ class Section {
     }
 
     getAllTasks() {
-        return this.#tasks.map(({ id, title, dueDate }) => ({ id, title, dueDate }));
+        return this.#tasks.map(({ id, title, dueDate, priority, completed }) => ({ id, title, dueDate, priority, completed }));
     }
 
     completeTask(id) {
@@ -81,6 +81,11 @@ class Section {
     get id(){
         return this.#id;
     }
+
+    get tasks(){
+        return this.getAllTasks();
+    }
+
 
     toJSON(){
         return {

@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@layer components {
+  .complete-btn {
+    @apply w-5 h-5 outline-2 cursor-pointer rounded-full mr-4 border-2 border-white data-[priority=0]:outline-gray-500 data-[priority=1]:outline-blue-400 data-[priority=2]:outline-green-400 data-[priority=3]:outline-red-400;
+  }
+  [data-priority = "0"][data-completed="true"]{
+    @apply bg-gray-500;
+  }
+  [data-priority = "1"][data-completed="true"]{
+    @apply bg-blue-500;
+  }
+  [data-priority = "2"][data-completed="true"]{
+    @apply bg-green-500;
+  }
+  [data-priority = "3"][data-completed="true"]{
+    @apply bg-red-500;
+  }
+}
