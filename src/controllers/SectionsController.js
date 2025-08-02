@@ -41,11 +41,17 @@ class SectionController {
     this.renderProject();
   }
 
+  updateSection(section, sectionData){
+    section.updateSection(sectionData);
+    this.saveCurrentState();
+    this.renderProject();
+  }
+
   renderSections() {
     this.sections = this.parent.sections;
     this.container.innerHTML = "";
     this.sections.forEach((section) => {
-      const taskContainer = SectionElement(this.container, section, this.deleteSection.bind(this));
+      const taskContainer = SectionElement(this.container, section, this.deleteSection.bind(this), this.updateSection.bind(this));
       const taskController = this.#getTaskController(section, taskContainer);
       taskController.renderTasks();
     });

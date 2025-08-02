@@ -1,4 +1,5 @@
 import deleteIcon from "../assets/delete.svg"
+import makeInlineEditable from "../modules/makeInlineEditable.js";
 
 export const addSectionHandler = (containerDOM, addSection) => {
   containerDOM.container.classList.remove("hidden");
@@ -23,7 +24,7 @@ export const addSectionHandler = (containerDOM, addSection) => {
   }, {once: true});
 }
 
-function SectionElement(container, section, deleteSection) {
+function SectionElement(container, section, deleteSection, updateSection) {
     const sectionElem = document.createElement('details');
     sectionElem.className = 'flex flex-col gap-1 p-2 rounded';
     sectionElem.setAttribute('data-id', section.id);
@@ -41,11 +42,17 @@ function SectionElement(container, section, deleteSection) {
     title.className = 'text-xl font-semibold';
     title.textContent = section.title;
     contentContainer.appendChild(title);
+    makeInlineEditable(title, (newTitle)=>{
+      updateSection(section, {title: newTitle});
+    })
 
     const description = document.createElement('p');
     description.className = 'text-sm text-gray-600';
     description.textContent = section.description;
     contentContainer.appendChild(description);
+    makeInlineEditable(description, (newDescription)=>{
+      updateSection(section, {description: newDescription});
+    });
 
     summary.appendChild(contentContainer);
 
