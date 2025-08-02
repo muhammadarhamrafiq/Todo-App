@@ -1,6 +1,6 @@
 import deleteIcon from '../assets/delete.svg';
 
-function createElement(project, setProject){
+function createElement(project, setProject, deleteProject){
     // Container for project item (handles both title click and delete)
     const projectElem = document.createElement('div')
     projectElem.className = 'flex items-center justify-between p-2 rounded-md hover:bg-gray-300 data-[active=true]:bg-red-300/20'
@@ -19,16 +19,22 @@ function createElement(project, setProject){
     const deleteBtn = document.createElement('button')
     deleteBtn.className = 'delete-project ml-2 text-red-500 hover:text-red-700 cursor-pointer'
     deleteBtn.innerHTML = deleteIcon
+    deleteBtn.addEventListener('click', function(event){
+        event.stopPropagation();
+        if(confirm(`Are you sure you want to delete the project "${project.title}"?`)) {
+            deleteProject(project.id);
+        }
+    });
 
     projectElem.append(titleBtn, deleteBtn)
     return projectElem
 }
 
-function ProjectListElements(projects, projectList, setProject) {
+function ProjectListElements(projects, projectList, setProject, deleteProject) {
     projectList.innerHTML = ''; // Clear existing elements
 
     projects.forEach((project,index) => {
-        const projectElem = createElement(project, setProject)
+        const projectElem = createElement(project, setProject, deleteProject)
         if(index === 0) {
             projectElem.setAttribute('data-active', 'true'); // Set first project as active
         }

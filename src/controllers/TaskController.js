@@ -37,6 +37,11 @@ class TaskController{
 
     completeTask(id){
         this.parent.completeTask(id);
+        // For now, we delete the task after completion
+        setTimeout(() => {
+            this.deleteTask(id);
+        }, 300);
+        // This can be changed to mark as completed instead of deleting
         this.saveCurrentState();
         this.renderParent();
     }

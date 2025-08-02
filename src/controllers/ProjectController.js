@@ -111,10 +111,20 @@ class ProjectController {
     return true;
   }
 
+  deleteProject(projectId){
+    this.todoApp.deleteProject(projectId);
+    this.saveCurrentState();
+    this.renderProjectList();
+  }
+
+
   renderProjectList() {
     const projectList = this.domManager.getElement("projectList");
-    ProjectListElements(this.todoApp.projects, projectList, (projectId) =>
-      this.setProject(projectId)
+    ProjectListElements(
+      this.todoApp.projects, 
+      projectList,
+      (projectId) => this.setProject(projectId),
+      this.deleteProject.bind(this)
     );
   }
 
