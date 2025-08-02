@@ -19,6 +19,14 @@ class DOMManager {
                 sectionsContainer: document.getElementById("projectSectionsContainer"),
             },
 
+            addSection:{
+                container: document.getElementById("addSectionFormContainer"),
+                form: document.getElementById("addSectionForm"),
+                title: document.getElementById("sectionTitle"),
+                description: document.getElementById("sectionDescription"),
+                close: document.getElementById("cancelSectionButton"),
+                submit: document.getElementById("sectionSubmit")
+            },
 
             taskModal:{
                 modal: document.getElementById("addTaskModal"),

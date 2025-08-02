@@ -1,6 +1,30 @@
 import deleteIcon from "../assets/delete.svg"
 
-function SectionElement(container, section) {
+export const addSectionHandler = (containerDOM, addSection) => {
+  containerDOM.container.classList.remove("hidden");
+  containerDOM.form.reset();
+
+  containerDOM.close.addEventListener("click" , ()=>{
+    containerDOM.container.classList.add("hidden");
+  }, {once: true});
+
+  containerDOM.submit.addEventListener("click", (e) => {
+    e.preventDefault();
+    const title = containerDOM.title.value.trim();
+    const description = containerDOM.description.value.trim();
+
+    if (title === "" || title.length < 3 || description === "") {
+      alert("Section title and description cannot be empty.");
+      return;
+    }
+
+    debugger;
+    addSection({title, description});
+    containerDOM.container.classList.add("hidden");
+  }, {once: true});
+}
+
+function SectionElement(container, section, deleteSection) {
     const sectionElem = document.createElement('details');
     sectionElem.className = 'flex flex-col gap-1 p-2 rounded';
     sectionElem.setAttribute('data-id', section.id);
@@ -28,7 +52,12 @@ function SectionElement(container, section) {
 
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'delete-section text-red-500 hover:text-red-700 cursor-pointer';
-    deleteBtn.innerHTML = deleteIcon
+    deleteBtn.innerHTML = deleteIcon;
+    deleteBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if(confirm(`Are you sure you want to delete the ${section.title} section?`)) 
+        deleteSection(section.id);
+    });
     summary.appendChild(deleteBtn);
 
     const tasksContainer = document.createElement("div");

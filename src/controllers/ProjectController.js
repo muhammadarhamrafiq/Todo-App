@@ -58,7 +58,8 @@ class ProjectController {
       this.saveCurrentState,
       this.renderProject.bind(this),
       this.taskModal,
-      this.sectionContainer
+      this.sectionContainer,
+      this.domManager.getElement("addSection")
     );
   }
 

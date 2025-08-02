@@ -7,7 +7,6 @@
   </head>
   <body>
     <main class="relative h-screen w-screen flex">
-
       <div class="p-4 border-r border-gray-200 h-full w-80">
         <h1 class="text-2xl font-bold">Todo App</h1>
         <div class="flex flex-col gap-1 mt-4" id="projectList">
@@ -59,8 +58,44 @@
         <div class="flex flex-col gap-1 mt-4" id="projectSectionsContainer">
           <!-- Project sections would be added dynamically -->
         </div>
+
+        <div id="addSectionFormContainer" class="mt-4 w-100 hidden">
+          <form id="addSectionForm">
+            <input
+              type="text"
+              id="sectionTitle"
+              name="title"
+              placeholder="Add new section"
+              class="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+            <textarea
+              id="sectionDescription"
+              name="description"
+              placeholder="Section Description"
+              class="w-full p-2 border border-gray-300 rounded mt-2"
+              required
+            ></textarea>
+            <div class="flex justify-end gap-2 mt-4">
+              <button
+                type="button"
+                id="cancelSectionButton"
+                class="mt-2 w-full p-2 rounded cursor-pointer hover:bg-gray-300"
+              >
+                Cancel
+              </button>
+              <button
+                id="sectionSubmit"
+                type="submit"
+                class="mt-2 w-full p-2 border rounded cursor-pointer hover:bg-gray-300"
+              >
+                Add Section
+              </button>
+              
+            </div>
+          </form>
+        </div>
       </div>
-      
     </main>
 
     <!-- Modal for Adding Task -->
