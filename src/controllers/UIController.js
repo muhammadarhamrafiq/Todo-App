@@ -22,7 +22,7 @@ class UIController {
 
             const success = this.projectController.addProject(projectName, projectDescription);
             
-            if (success) {s
+            if (success) {
                 projectForm.reset();
                 this.hideProjectForm();
             }
@@ -47,7 +47,6 @@ class UIController {
         const projectForm = this.domManager.getElement('projectForm');
         projectForm.classList.remove('hidden');
     }
-s
 }
 
 export default UIController;

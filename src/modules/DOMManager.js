@@ -20,16 +20,17 @@ class DOMManager {
             },
 
 
-            taskModal: document.getElementById("addTaskModal"),
-            taskForm: document.getElementById("addTaskForm"),
-            taskFormFields:{
-                title: document.getElementById("taskTitle"),
+            taskModal:{
+                modal: document.getElementById("addTaskModal"),
+                form: document.getElementById("addTaskForm"),
+                title: document.getElementById("modalTitle"),
+                taskTitle: document.getElementById("taskTitle"),
                 dueDate: document.getElementById("taskDueDate"),
                 priority: document.getElementById("taskPriority"),
                 description: document.getElementById("taskDescription"),
                 note: document.getElementById("taskNote"),
-                cancel: document.getElementById("cancelTaskButton"),
-                submit: document.getElementById("submitTask")
+                close: document.getElementById("cancelTaskButton"),
+                submit: document.getElementById("taskSubmit")
             }
         };
     }

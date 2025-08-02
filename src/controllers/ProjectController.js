@@ -8,52 +8,27 @@ class ProjectController {
     this.todoApp = todoApp;
     this.domManager = domManager;
     this.currentProject = null;
-
+    
     this.taskController = null;
+    this.taskModal = this.domManager.getElement("taskModal");
+    
+    
+    this.projectPanelElem = this.domManager.getElement("projectPanel");
+    this.taskContainer = this.projectPanelElem.tasksContainer;
+    this.sectionContainer = this.projectPanelElem.sectionsContainer;
 
     // Initialize with first project
     if (this.todoApp.projects.length > 0) {
       this.currentProject = this.todoApp.getProject(
         this.todoApp.projects[0].id
       );
-      this.taskController = new TaskController(
-        {
-          tasks: this.currentProject.tasks,
-          addTask: this.currentProject.addTask.bind(this.currentProject),
-          getAllTasks: this.currentProject.getAllTasks.bind(
-            this.currentProject
-          ),
-          getTask: this.currentProject.getTask.bind(this.currentProject),
-          completeTask: this.currentProject.completeTask.bind(
-            this.currentProject
-          ),
-          deleteTask: this.currentProject.deleteTask.bind(this.currentProject),
-        },
-        this.saveCurrentState,
-        this.renderProject.bind(this)
-      );
-
-      this.sectionController = new SectionController(
-        {
-          sections: this.currentProject.sections,
-          addSection: this.currentProject.addSection.bind(this.currentProject),
-          deleteSection: this.currentProject.deleteSection.bind(
-            this.currentProject
-          ),
-        },
-        this.saveCurrentState,
-        this.renderProject.bind(this)
-      );
+      this.taskController = this.#getTaskController();
+      this.sectionController = this.#getSectionController();
     }
   }
 
-  saveCurrentState = () => {
-    return this.todoApp.storeToLocalStorage();
-  };
-
-  setProject(projectId) {
-    this.currentProject = this.todoApp.getProject(projectId);
-    this.taskController = new TaskController(
+  #getTaskController() {
+    return new TaskController(
       {
         tasks: this.currentProject.tasks,
         addTask: this.currentProject.addTask.bind(this.currentProject),
@@ -65,10 +40,14 @@ class ProjectController {
         deleteTask: this.currentProject.deleteTask.bind(this.currentProject),
       },
       this.saveCurrentState,
-      this.renderProject.bind(this)
+      this.renderProject.bind(this),
+      this.taskModal,
+      this.taskContainer
     );
+  }
 
-    this.sectionController = new SectionController(
+  #getSectionController() {
+    return new SectionController(
       {
         sections: this.currentProject.sections,
         addSection: this.currentProject.addSection.bind(this.currentProject),
@@ -77,8 +56,20 @@ class ProjectController {
         ),
       },
       this.saveCurrentState,
-      this.renderProject.bind(this)
+      this.renderProject.bind(this),
+      this.taskModal,
+      this.sectionContainer
     );
+  }
+
+  saveCurrentState = () => {
+    return this.todoApp.storeToLocalStorage();
+  };
+
+  setProject(projectId) {
+    this.currentProject = this.todoApp.getProject(projectId);
+    this.taskController = this.#getTaskController();
+    this.sectionController = this.#getSectionController();
 
     this.updateActiveProjectUI(projectId);
     this.renderProject();
@@ -128,10 +119,9 @@ class ProjectController {
   }
 
   renderProject() {
-    const projectPanelElem = this.domManager.getElement("projectPanel");
-    projectPanel(this.currentProject, projectPanelElem);
-    this.taskController.renderTasks(projectPanelElem.tasksContainer);
-    this.sectionController.renderSections(projectPanelElem.sectionsContainer);
+    projectPanel(this.currentProject, this.projectPanelElem);
+    this.taskController.renderTasks();
+    this.sectionController.renderSections();
   }
 
   getCurrentProject() {

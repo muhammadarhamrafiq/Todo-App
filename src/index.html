@@ -66,36 +66,38 @@
     <!-- Modal for Adding Task -->
     <div
       id="addTaskModal"
-      class="fixed inset-0 bg-black/30ss flex items-center justify-center z-50 hidden"
+      class="fixed inset-0 bg-black/30 flex items-center justify-center z-50 hidden"
     >
       <div class="bg-white rounded-lg shadow-lg p-6 w-96">
-        <h3 class="text-xl font-semibold mb-4">Add New Task</h3>
+        <h3 id="modalTitle" class="text-xl font-semibold mb-4">Add New Task</h3>
         <form id="addTaskForm" class="flex flex-col gap-3">
           <input
             type="text"
             id="taskTitle"
-            name="taskTitle"
+            name="title"
             placeholder="Task Title"
             class="p-2 border border-gray-300 rounded"
             required
           />
           <textarea
             id="taskDescription"
-            name="taskDescription"
+            name="description"
             placeholder="Task Description"
             class="p-2 border border-gray-300 rounded"
+            required
           ></textarea>
           <input
             type="date"
             id="taskDueDate"
-            name="taskDueDate"
+            name="dueDate"
             class="p-2 border border-gray-300 rounded"
+            required
           />
           <div>
             <label for="taskPriority" class="block mb-1">Priority</label>
             <select
               id="taskPriority"
-              name="taskPriority"
+              name="priority"
               class="w-full p-2 border border-gray-300 rounded"
             >
               <option value="0">0 ⬜</option>
@@ -106,7 +108,7 @@
           </div>
           <textarea
             id="taskNote"
-            name="taskNote"
+            name="note"
             placeholder="Note"
             class="p-2 border border-gray-300 rounded"
           ></textarea>
@@ -114,13 +116,14 @@
             <button
               type="button"
               id="cancelTaskButton"
-              class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+              class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 cursor-pointer"
             >
-              Cancel
+              Close
             </button>
             <button
+              id="taskSubmit"
               type="submit"
-              class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+              class="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 cursor-pointer"
             >
               Add Task
             </button>
