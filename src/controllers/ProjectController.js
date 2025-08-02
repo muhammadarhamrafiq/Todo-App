@@ -118,6 +118,14 @@ class ProjectController {
     this.renderProjectList();
   }
 
+  updateProject(updateData){
+    if (!this.currentProject) return;
+
+    this.currentProject.updateProject(updateData);
+    this.saveCurrentState();
+    this.renderProject();
+  }
+
 
   renderProjectList() {
     const projectList = this.domManager.getElement("projectList");
@@ -130,7 +138,7 @@ class ProjectController {
   }
 
   renderProject() {
-    projectPanel(this.currentProject, this.projectPanelElem);
+    projectPanel(this.currentProject, this.projectPanelElem, this.updateProject.bind(this));
     this.taskController.renderTasks();
     this.sectionController.renderSections();
   }

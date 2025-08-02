@@ -17,8 +17,7 @@ export const addSectionHandler = (containerDOM, addSection) => {
       alert("Section title and description cannot be empty.");
       return;
     }
-
-    debugger;
+    
     addSection({title, description});
     containerDOM.container.classList.add("hidden");
   }, {once: true});
